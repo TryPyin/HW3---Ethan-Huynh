@@ -1,0 +1,43 @@
+import math
+
+def factorial(n):
+    """Calculate the factorial of n."""
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+def t_distribution_probability(t, df):
+    """
+    Calculate the right-hand side of the t-distribution equation.
+
+    Parameters:
+    t (float): Value of t.
+    df (int): Degrees of freedom.
+
+    Returns:
+    float: Probability.
+    """
+    numerator = factorial((df + 1) // 2 - 1) * math.sqrt(df * math.pi) * math.pow(1 + (t ** 2) / df, -(df + 1) / 2)
+    denominator = 2 ** ((df - 1) / 2) * factorial(df // 2)
+    probability = numerator / denominator
+    return probability
+
+def main():
+    # Prompt user for degrees of freedom
+    df = int(input("Enter degrees of freedom: "))
+
+    # Prompt user for z values
+    num_z_values = 3
+    z_values = [float(input(f"Enter z value {i + 1}: ")) for i in range(num_z_values)]
+
+    # Calculate and print probabilities
+    print("\nDegrees of Freedom:", df)
+    print("Z Values:", z_values)
+    print("\nResults:")
+    for z in z_values:
+        probability = t_distribution_probability(z, df)
+        print(f"Probability for z = {z}: {probability}")
+
+if __name__ == "__main__":
+    main()
